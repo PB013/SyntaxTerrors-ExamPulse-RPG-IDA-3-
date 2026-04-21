@@ -1,121 +1,151 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
 
+//change to seperate charactercard
+const App = () => {
+  const [character, setCharacter] = useState({
+    name: '',
+    charClass: 'Scholar',
+    level: 1,
+    rank: 'Novice',
+    specialty: '',
+    avatar: null,
+  });
+
+  const [description, setDescription] = useState('');
+
+  const classes = ['Scholar', 'Mage', 'Warrior', 'Rogue', 'Bard'];
+  const ranks = ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master'];
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setCharacter((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleAvatarUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setCharacter((prev) => ({ ...prev, avatar: URL.createObjectURL(file) }));
+    }
+  };
+
+  const saveCharacter = () => {
+    const desc = `${character.name} is a Level ${character.level} ${character.charClass} (${character.rank}) specializing in ${character.specialty || 'General Studies'}.`;
+    setDescription(desc);
+    alert('Character Data Saved locally!');
+  };
+
+
+  //mainframe
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-container">
+      <nav>
+        <span className="nav-brand">ExamPulse RPG</span>
+        <ul className="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#exam">Exam Countdown</a></li>
+          <li><a href="#tasks">Tasks</a></li>
+          <li><a href="#rewards">Rewards</a></li>
+        </ul>
+      </nav>
 
-      <div className="ticks"></div>
+      <main>
+        {/* LEFT COLUMN */}
+        <div className="avatar-zone">
+          <div 
+            className="avatar-circle" 
+            onClick={() => document.getElementById('avatar-upload').click()}
+            title="Click to change character image"
+          >
+            {character.avatar ? (
+              <img src={character.avatar} alt="Character" id="avatarImg" />
+            ) : (
+              <span className="avatar-label">Placeholder<br/>of character</span>
+            )}
+            <div className="change-hint">CHANGE</div>
+          </div>
+          <input 
+            type="file" 
+            id="avatar-upload" 
+            hidden 
+            accept="image/*" 
+            onChange={handleAvatarUpload} 
+          />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <div className="char-card">
+            <h3>Character Creation Card</h3>
+
+            <div className="char-field">
+              <label>Character Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Enter name…" 
+                value={character.name}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="char-field">
+              <label>Class</label>
+              <div className="class-chips">
+                {classes.map((c) => (
+                  <span 
+                    key={c}
+                    className={`chip ${character.charClass === c ? 'active' : ''}`}
+                    onClick={() => setCharacter({ ...character, charClass: c })}
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="stat-row">
+              <div className="char-field">
+                <label>Level</label>
+                <input 
+                  type="number" 
+                  id="level" 
+                  min="1" 
+                  max="99" 
+                  value={character.level}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="char-field">
+                <label>Rank</label>
+                <select id="rank" value={character.rank} onChange={handleInputChange}>
+                  {ranks.map(r => <option key={r} value={r}>{r}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div className="char-field">
+              <label>Specialty / Subject</label>
+              <input 
+                type="text" 
+                id="specialty" 
+                placeholder="e.g. Mathematics, History…" 
+                value={character.specialty}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <button className="char-save-btn" onClick={saveCharacter}>
+              Save Character
+            </button>
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+
+        {/* RIGHT COLUMN */}
+        <div className="description-panel">
+          <p id="descriptionText">{description}</p>
         </div>
-      </section>
+      </main>
+    </div>
+  );
+};
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
-
-export default App
+export default App;
