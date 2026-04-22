@@ -1,15 +1,15 @@
 import Navbar from './Navbar';
 import './App.css';
 
-function About() {
+function Tasks() {
   return (
-    <div className="about-page">
+    <div className="task-page">
       <Navbar />
       <main>
-        <p>About page content here.</p>
+        <p>Dailies and to do list here probs :3</p>
       </main>
     </div>
   );
 }
 
-export default About;
+export default Tasks;

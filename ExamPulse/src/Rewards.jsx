@@ -1,15 +1,15 @@
 import Navbar from './Navbar';
 import './App.css';
 
-function About() {
+function Rewards() {
   return (
-    <div className="about-page">
+    <div className="reward-page">
       <Navbar />
       <main>
-        <p>About page content here.</p>
+        <p>Collectibles here.</p>
       </main>
     </div>
   );
 }
 
-export default About;
+export default Rewards;

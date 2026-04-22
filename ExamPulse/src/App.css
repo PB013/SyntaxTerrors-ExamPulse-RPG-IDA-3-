@@ -41,7 +41,7 @@ body {
   color: var(--text-dark);
 }
 
-/* ── NAV ── */
+/* ── NAVIGATION ── */
 nav {
   background: var(--navy);
   display: flex;
