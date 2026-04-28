@@ -15,7 +15,7 @@
   --navy-dk:   #12175a;
   --gold:      #c9a84c;
   --gold-lt:   #e8c97a;
-  --parchment: #f4efe6;
+  --white: #ffffff;
   --card-bg:   #e8e2d6;
   --card-border: #c0b89a;
   --text-dark: #1a1540;
@@ -33,7 +33,7 @@
 body {
   font-family: 'Pixelmax',sans-serif;
   font-family: 'VT323', monospace;
-  background: var(--parchment);
+  background: var(--white);
   background-image:
     radial-gradient(ellipse at 80% 10%, rgba(201, 168, 76, 0.07) 0%, transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
@@ -61,7 +61,7 @@ nav {
   font-family: 'Pixelmax',sans-serif;
   font-weight: 900;
   font-size: 1.1rem;
-  color: var(--parchment);
+  color: var(--white);
   letter-spacing: 0.04em;
   margin-right: auto;
   text-shadow: 0 0 12px rgba(201, 168, 76, 0.4);
@@ -78,7 +78,7 @@ nav {
   font-family: 'VT323', monospace;
   font-size: 0.9rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.851);
+  color: rgba(255, 255, 255, 0.932);
   text-decoration: none;
   padding: 0.35rem 0.55rem;
   border-radius: 4px;
@@ -207,7 +207,7 @@ main {
   font-size: 1.3rem;
  font-family: 'VT323', monospace;
   letter-spacing: 0.05em;
-  color: #569caaec;
+  color: #437079ec;
   margin-bottom: 0.25rem;
 }
 
@@ -217,7 +217,7 @@ main {
   padding: 0.38rem 0.55rem;
   border: 1px solid var(--card-border);
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(248, 248, 248, 0.849);
   font-family: 'Crimson Pro', serif;
   font-size: 0.9rem;
   color: var(--text-dark);

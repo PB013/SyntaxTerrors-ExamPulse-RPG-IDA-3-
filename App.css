@@ -3,7 +3,7 @@
   --navy-dk:   #12175a;
   --gold:      #c9a84c;
   --gold-lt:   #e8c97a;
-  --parchment: #f4efe6;
+  --parchment: #ffffff;
   --card-bg:   #e8e2d6;
   --card-border: #c0b89a;
   --text-dark: #1a1540;
@@ -22,7 +22,7 @@ body {
   font-family: 'Crimson Pro', Georgia, serif;
   background: var(--parchment);
   background-image:
-    radial-gradient(ellipse at 80% 10%, rgba(201, 168, 76, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 10%, rgba(240, 237, 231, 0.07) 0%, transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   min-height: 100vh;
   color: var(--text-dark);
