@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import TasksColumn from './TasksColumn';
 import './App.css';
-
+import './Tasks.css';
 
 const XP_PER_TASK = { daily: 15, todo: 20 };
 const GOLD_PER_TASK = { daily: 5, todo: 8 };

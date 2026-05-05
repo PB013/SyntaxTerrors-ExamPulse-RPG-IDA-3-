@@ -802,3 +802,45 @@ main {
     padding: 0.75rem 1rem;
   }
 }
+
+.about-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.about-card h2 {
+  margin-bottom: 1rem;
+  color: var(--navy);
+}
+
+.about-card p {
+  margin-bottom: 0.6rem;
+}
+
+/* underline colors */
+.red-underline {
+  border-bottom: 3px solid red;
+  display: inline-block;
+}
+
+.orange-underline {
+  border-bottom: 3px solid orange;
+  display: inline-block;
+}
+
+.yellow-underline {
+  border-bottom: 3px solid gold;
+  display: inline-block;
+}
+
+.green-underline {
+  border-bottom: 3px solid green;
+  display: inline-block;
+}
+
+.color-legend p {
+  margin-bottom: 10px;
+}
