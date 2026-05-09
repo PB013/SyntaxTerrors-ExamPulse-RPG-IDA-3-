@@ -844,3 +844,41 @@ main {
 .color-legend p {
   margin-bottom: 10px;
 }
+
+.about-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  min-height: 80vh;        
+  padding: 20px;
+}
+
+
+.about-box {
+  max-width: 800px;       
+  padding: 40px;
+  background-color: #f9f9f9; 
+  border: 1px solid #ccc;  
+  border-radius: 12px;      
+  text-align: center;       
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
+
+
+.red-underline { color: red; font-weight: bold; }
+.orange-underline { color: orange; font-weight: bold; }
+.yellow-underline { color: #d4af37; font-weight: bold; } 
+.green-underline { color: green; font-weight: bold; }
+
+/* Target the calendar/clock icon */
+.char-field input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  /* This flips the icon color from white to dark */
+  filter: invert(0.5); 
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.char-field input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
