@@ -3,6 +3,11 @@ import Navbar from './Navbar';
 import './App.css';
 
 const App = () => {
+ // ── Shared RPG state (lifted up so Tasks & Rewards share it) ──
+  const [xp, setXp] = useState(() => Number(localStorage.getItem('exampulse-xp') || 0));
+  const [gold, setGold] = useState(() => Number(localStorage.getItem('exampulse-gold') || 0));
+  const [level, setLevel] = useState(() => Number(localStorage.getItem('exampulse-level') || 1));
+
   const [character, setCharacter] = useState({
     name: '',
     charClass: 'Scholar',

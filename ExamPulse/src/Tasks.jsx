@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import Navbar from './Navbar';
 import TasksColumn from './TasksColumn';
 import './App.css';
-
 
 const XP_PER_TASK = { daily: 15, todo: 20 };
 const GOLD_PER_TASK = { daily: 5, todo: 8 };
@@ -25,19 +23,15 @@ const defaultTasks = [
   makeTask('Practice problems', 'Math', 'todo'),
 ];
 
-function Tasks() {
+function Tasks({ xp, setXp, gold, setGold, level, setLevel }) {
+
   const [tasks, setTasks] = useState(() => {
     try {
       const saved = localStorage.getItem('exampulse-tasks');
       return saved ? JSON.parse(saved) : defaultTasks;
-    } catch {
-      return defaultTasks;
-    }
+    } catch { return defaultTasks; }
   });
 
-  const [xp, setXp] = useState(() => Number(localStorage.getItem('exampulse-xp') || 0));
-  const [gold, setGold] = useState(() => Number(localStorage.getItem('exampulse-gold') || 0));
-  const [level, setLevel] = useState(() => Number(localStorage.getItem('exampulse-level') || 1));
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
@@ -90,7 +84,6 @@ function Tasks() {
 
   return (
     <div className="task-page">
-      
 
       {toast && <div className="toast">{toast}</div>}
 

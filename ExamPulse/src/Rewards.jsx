@@ -26,7 +26,7 @@ export default function Rewards({ gold, onUpdateGold }) {
   return (
     <div className="about-card">
       <h2>Rewards Shop</h2>
-      <p>Gold Available: <span className="gold-value">{gold} Coins</span></p>
+      <p>Gold Available: <span className="gold-value">{gold} </span></p>
 
       <h3 style={{ marginTop: '1rem', color: 'var(--navy)' }}>Buy Items</h3>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -57,3 +57,4 @@ export default function Rewards({ gold, onUpdateGold }) {
     </div>
   );
 }
+
