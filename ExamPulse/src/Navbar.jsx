@@ -11,7 +11,6 @@ const Navbar = () => {
                 <NavLink to="/countdown" className="nav-link">Exam Countdown</NavLink>
                 <NavLink to="/tasks" className="nav-link">Tasks</NavLink>
                 <NavLink to="/rewards" className="nav-link">Rewards</NavLink>
-
             </div>
         </nav>
     );

@@ -7,10 +7,12 @@ import ExamCountdown from './ExamCountdown.jsx';
 import Tasks from './Tasks.jsx';
 import Rewards from './Rewards.jsx';
 import './index.css';
+import Navbar from './Navbar.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/about" element={<About />} />

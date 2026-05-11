@@ -22,7 +22,7 @@ export default function ExamCountdown() {
   const [gold, setGold] = useState(() => Number(localStorage.getItem('exampulse-gold') || 0));
   const [level, setLevel] = useState(() => Number(localStorage.getItem('exampulse-level') || 1));
   const [completedCount, setCompletedCount] = useState(() => Number(localStorage.getItem('exampulse-done-today') || 0));
-  const [toast, setToast] = useState(null);
+  const [toast, setToast] = useState(null);  
 
   // Form states
   const [name, setName] = useState('');

@@ -67,7 +67,6 @@ const App = () => {
 
   return (
     <div>
-      <Navbar />
       <main>
         {/* LEFT COLUMN */}
         <div className="avatar-zone">
