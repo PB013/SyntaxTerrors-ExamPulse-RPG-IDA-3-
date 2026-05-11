@@ -4,7 +4,6 @@ import './App.css';
 function About() {
   return (
     <div className="about-page">
-      <Navbar />
       <p>
         This app is an exam tracker with a built in gamified reward system. This
         system includes if you are ready for an exam based on the time you reviewed.
@@ -13,8 +12,9 @@ function About() {
 
       <div className="color-legend">
         <p className="red-underline">Red being intense, </p>
-        <p className="orange-underline">Orange being moderately difficult, </p>
-        <p className="yellow-underline">Yellow being mostly ready but not that good, </p>
+        <br></br>
+        <p className="orange-underline">Orange being moderately difficult, </p> <br></br>
+        <p className="yellow-underline">Yellow being mostly ready but not that good, </p><br></br>
         <p className="green-underline">Green being Excellent and ready</p>
       </div>
       <p>

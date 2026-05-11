@@ -128,7 +128,7 @@ export default function ExamCountdown() {
 
   return (
     <div className="task-page">
-      <Navbar />
+      
 
       {toast && <div className="toast">{toast}</div>}
 
