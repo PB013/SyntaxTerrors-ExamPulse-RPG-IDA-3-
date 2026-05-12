@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 import TasksColumn from './TasksColumn';
 import './App.css';
 
@@ -23,16 +24,37 @@ const defaultTasks = [
   makeTask('Practice problems', 'Math', 'todo'),
 ];
 
-function Tasks({ xp, setXp, gold, setGold, level, setLevel }) {
-
+function Tasks() {
   const [tasks, setTasks] = useState(() => {
     try {
       const saved = localStorage.getItem('exampulse-tasks');
       return saved ? JSON.parse(saved) : defaultTasks;
-    } catch { return defaultTasks; }
+    } catch {
+      return defaultTasks;
+    }
   });
 
+  // Global Dashboard States
+  const [xp, setXp] = useState(() => Number(localStorage.getItem('exampulse-xp') || 0));
+  const [gold, setGold] = useState(() => Number(localStorage.getItem('exampulse-gold') || 0));
+  const [level, setLevel] = useState(() => Number(localStorage.getItem('exampulse-level') || 1));
   const [toast, setToast] = useState(null);
+
+  // Cosmetic State for bought theme
+  const [hasCyberTheme, setHasCyberTheme] = useState(false);
+
+  // Check inventory vault on mount for theme unlock token
+  useEffect(() => {
+    try {
+      const savedInventory = localStorage.getItem('exampulse-inventory');
+      if (savedInventory) {
+        const inventoryArray = JSON.parse(savedInventory);
+        setHasCyberTheme(inventoryArray.some(item => item.id === 'item_tasks_cyber'));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('exampulse-tasks', JSON.stringify(tasks));
@@ -53,6 +75,7 @@ function Tasks({ xp, setXp, gold, setGold, level, setLevel }) {
     const task = tasks.find(t => t.id === id);
     if (!task || task.done) return;
 
+    // Updates state array so React catches the change instantly
     setTasks(prev => prev.map(t => t.id === id ? { ...t, done: true } : t));
 
     const newXp = xp + task.xp;
@@ -77,13 +100,17 @@ function Tasks({ xp, setXp, gold, setGold, level, setLevel }) {
     setTasks(prev => [...prev, makeTask(name, subject, type)]);
   };
 
-  const dailies = tasks.filter(t => t.type === 'daily');
-  const todos = tasks.filter(t => t.type === 'todo');
+  // 🔥 FIXED FILTER LOGIC: Incomplete tasks split by type, completed tasks gathered into their own space
+  const dailies = tasks.filter(t => t.type === 'daily' && !t.done);
+  const todos = tasks.filter(t => t.type === 'todo' && !t.done);
   const completed = tasks.filter(t => t.done);
+  
   const xpPercent = Math.round((xp / XP_TO_LEVEL_UP) * 100);
 
   return (
-    <div className="task-page">
+    /* Injects cyber theme layout class if item is purchased */
+    <div className={`task-page ${hasCyberTheme ? 'cyber-tasks-unlocked' : ''}`}>
+      <Navbar />
 
       {toast && <div className="toast">{toast}</div>}
 
