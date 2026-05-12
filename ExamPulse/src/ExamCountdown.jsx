@@ -22,7 +22,10 @@ export default function ExamCountdown() {
   const [gold, setGold] = useState(() => Number(localStorage.getItem('exampulse-gold') || 0));
   const [level, setLevel] = useState(() => Number(localStorage.getItem('exampulse-level') || 1));
   const [completedCount, setCompletedCount] = useState(() => Number(localStorage.getItem('exampulse-done-today') || 0));
-  const [toast, setToast] = useState(null);  
+  const [toast, setToast] = useState(null);
+  
+  // Cosmetic Skin State
+  const [hasGoldTheme, setHasGoldTheme] = useState(false);
 
   // Form states
   const [name, setName] = useState('');
@@ -34,6 +37,19 @@ export default function ExamCountdown() {
 
   const [showGame, setShowGame] = useState(false);
   const [currentGameId, setCurrentGameId] = useState(null);
+
+  // Check inventory vault on mount for theme unlock token
+  useEffect(() => {
+    try {
+      const savedInventory = localStorage.getItem('exampulse-inventory');
+      if (savedInventory) {
+        const inventoryArray = JSON.parse(savedInventory);
+        setHasGoldTheme(inventoryArray.some(item => item.id === 'item_dashboard_gold'));
+      }
+    } catch (e) {
+      console.error("Error reading cosmetic parameters:", e);
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('exampulse-exams', JSON.stringify(exams));
@@ -95,7 +111,6 @@ export default function ExamCountdown() {
     setShowGame(true);
   };
 
-  // Updated: When completing the game (success), we trigger the deletion and award XP/Coins.
   const handleCloseGame = (success) => {
     setShowGame(false);
     if (success && currentGameId) {
@@ -127,8 +142,9 @@ export default function ExamCountdown() {
   const xpPercent = Math.round((xp / XP_TO_LEVEL_UP) * 100);
 
   return (
-    <div className="task-page">
-      
+    /* Dynamic class handler applies cosmetic layout overrides if owned */
+    <div className={`task-page ${hasGoldTheme ? 'gold-theme-unlocked' : ''}`}>
+      <Navbar />
 
       {toast && <div className="toast">{toast}</div>}
 
@@ -272,7 +288,6 @@ export default function ExamCountdown() {
           }}
         >
           <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '8px' }}>
-            {/* The onClose trigger completes the game and rewards gold */}
             <DinoGame onClose={() => handleCloseGame(true)} />
             <button
               onClick={() => handleCloseGame(false)}
