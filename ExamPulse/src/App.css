@@ -1124,3 +1124,23 @@ main {
 .cyber-tasks-unlocked .add-task-input::placeholder {
   color: #94a3b8 !important;
 }
+/* ==========================================================================
+   🗓️ EXACT ICON ONLY COLOR FIX (KEEPS YOUR LIGHT FORM FIELDS)
+   ========================================================================== */
+
+/* 1. Targets ONLY the native browser calendar/clock icons to make them dark gray/black */
+.add-task-form input[type="date"]::-webkit-calendar-picker-indicator,
+.add-task-form input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0) brightness(0.2) !important; /* Forces the vector icon to stay crisp and dark */
+  cursor: pointer;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+/* 2. Reverts your inputs to their original clean, bright layout style */
+.add-task-form input[type="date"],
+.add-task-form input[type="time"] {
+  color: #333333 !important; /* Dark text so you can read what you typed */
+  background-color: #ffffff !important; /* Pure white background box */
+  border: 1px solid #ccc !important;
+}
