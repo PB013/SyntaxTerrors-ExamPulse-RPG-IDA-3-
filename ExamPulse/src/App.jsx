@@ -13,10 +13,8 @@ const App = () => {
   });
 
   const [description, setDescription] = useState('');
-  const [showAvatarModal, setShowAvatarModal] = useState(false);
-  const [dragOver, setDragOver] = useState(false);
   const [hasPremiumTheme, setHasPremiumTheme] = useState(false);
-  const [toast, setToast] = useState(null); // Added toast tracker for sneaky confirmation
+  const [toast, setToast] = useState(null); 
   const fileInputRef = useRef(null);
 
   const classes = ['Scholar', 'Mage', 'Warrior', 'Rogue', 'Bard'];
@@ -35,15 +33,10 @@ const App = () => {
     }
   }, []);
 
-  // --- 🤫 THE SECRET CHEAT FUNCTION ---
   const triggerSecretGold = () => {
     const currentGold = Number(localStorage.getItem('exampulse-gold') || 0);
     const newGold = currentGold + 50;
-    
-    // Save directly to localStorage so the Reward Shop reads it instantly
     localStorage.setItem('exampulse-gold', newGold);
-    
-    // Flash a temporary hidden toast alert
     setToast('🤫 Secret Code: +50 Gold Added!');
     setTimeout(() => setToast(null), 2000);
   };
@@ -53,22 +46,34 @@ const App = () => {
     setCharacter((prev) => ({ ...prev, [id]: value }));
   };
 
+  // 🚀 HIGHLY COMPATIBLE IMAGE CONVERTER
   const applyAvatar = (file) => {
     if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setCharacter((prev) => ({ ...prev, avatar: e.target.result }));
-        localStorage.setItem('examPulseAvatar', e.target.result);
+        const base64Data = e.target.result;
+        
+        // Update state instantly so it renders right away
+        setCharacter((prev) => ({ ...prev, avatar: base64Data }));
+        
+        // Save to storage safely
+        try {
+          localStorage.setItem('examPulseAvatar', base64Data);
+        } catch (error) {
+          console.warn("Image too big for localStorage, displaying locally for this session.");
+        }
       };
       reader.readAsDataURL(file);
-      setShowAvatarModal(false);
     }
   };
 
   const handleFileInput = (e) => applyAvatar(e.target.files[0]);
-  const handleDrop = (e) => { e.preventDefault(); setDragOver(false); applyAvatar(e.dataTransfer.files[0]); };
-  const handleDragOver = (e) => { e.preventDefault(); setDragOver(true); };
-  const handleDragLeave = () => setDragOver(false);
+
+  const handleCircleClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem('examPulseAvatar');
@@ -85,27 +90,47 @@ const App = () => {
     <div className={`character-container ${hasPremiumTheme ? 'cosmic-unlocked' : ''}`}>
       <Navbar />
 
-      {/* Secret Toast Feed */}
       {toast && <div className="toast secret-toast">{toast}</div>}
 
       <main>
         <div className="avatar-zone">
-          <div className="avatar-circle" onClick={() => setShowAvatarModal(true)}>
-            {character.avatar ? <img src={character.avatar} alt="Character" /> : <span className="avatar-label">Placeholder<br />of character</span>}
+          
+          {/* ⚡ THE AVATAR RING (Clicking this opens the file explorer instantly) */}
+          <div className="avatar-circle" onClick={handleCircleClick} style={{ cursor: 'pointer' }}>
+            {character.avatar ? (
+              <img 
+                src={character.avatar} 
+                alt="Avatar" 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',   /* Prevents distortion */
+                  borderRadius: '50%',  /* Ensures it stays perfectly round */
+                  display: 'block'
+                }} 
+              />
+            ) : (
+              // Keeps your exact markup classes intact so CSS styles don't break
+              <span className="avatar-label">
+                Placeholder<br />of character
+              </span>
+            )}
+            {/* Matches your exact "CHANGE" overlay styling */}
             <div className="change-hint">CHANGE</div>
           </div>
 
-          {/* Avatar Upload Modal Code Remains Intact... */}
+          {}
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleFileInput} 
+            accept="image/*" 
+            style={{ display: 'none' }} 
+          />
 
           {/* Character Card */}
           <div className="char-card">
-            
-            {/* 🎯 THE HIDDEN BUTTON: Clicking this text triggers the gold cheat */}
-            <h3 
-              onClick={triggerSecretGold} 
-              className="secret-clickable-title"
-              title="Character Creation Card"
-            >
+            <h3 onClick={triggerSecretGold} className="secret-clickable-title" title="Character Creation Card">
               Character Creation Card
             </h3>
 
